@@ -1,3 +1,4 @@
+/* global AT */
 var express           =     require('express')
   , passport          =     require('passport')
   , util              =     require('util')
@@ -6,23 +7,9 @@ var express           =     require('express')
   , cookieParser      =     require('cookie-parser')
   , bodyParser        =     require('body-parser')
   , config            =     require('./configuration/config')
-  , mysql             =     require('mysql')
+  ,request =                require('request')
   , app               =     express();
 
-//Define MySQL parameter in Config.js file.
-var connection = mysql.createConnection({
-  host     : config.host,
-  user     : config.username,
-  password : config.password,
-  database : config.database
-});
-
-//Connect to Database only if Config.js parameter is set.
-
-if(config.use_database==='true')
-{
-    connection.connect();
-}
 
 // Passport session setup.
 passport.serializeUser(function(user, done) {
@@ -120,6 +107,9 @@ passport.use(new FacebookStrategy({
       //Check whether the User exists or not using profile.id
       console.log('ID: '+profile.id);
       console.log('AT: '+accessToken);
+      
+      AT = accessToken;
+      console.log('ATC :'+AT);
       return done(null, profile);
     });
   }
@@ -153,20 +143,22 @@ app.get('/', function(req, res){
   res.render('index', { user: req.user });
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
-  // ************* NUOVO da prendere AT e provare 
-  /*
-      var request = require('request');
-var url = 'https://graph.facebook.com/v2.5/me';
+app.get('/account', ensureAuthenticated, function(req, res){ 
+  // ************* ONLY FOR TEST 
+ 
+console.log('AAAAA: '+AT);   
+  
+var url = 'https://graph.facebook.com/v2.5/me?access_token='+AT;
 request(url, function (error, response, body) {
   if (!error && response.statusCode == 200) {
     var fbResponse = JSON.parse(body);
-    console.log("Got a response: ", fbResponse.picture);
+    console.log("Got a response: ", fbResponse);
   } else {
     console.log("Got an error: ", error, ", status code: ", response.statusCode);
   }
 });
-  */
+ 
+
  // *********************************** 
   
   res.render('account', { user: req.user });
@@ -209,3 +201,10 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.listen(3000);
+
+//remember to export AT if needed
+/*
+module.exports = {
+    FOO: FOO
+};
+*/
