@@ -162,6 +162,9 @@ request(url, function (error, response, body) {
  // *********************************** 
   
   res.render('account', { user: req.user });
+  //res.send('closing..');
+  server.close();
+  console.log('Server closing....');
 });
 
 
@@ -200,7 +203,9 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login')
 }
 
-app.listen(3000);
+var server = app.listen(3000);
+console.log('Life goes on');
+//ui.something
 
 //remember to export AT if needed
 /*

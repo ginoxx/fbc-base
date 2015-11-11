@@ -1,5 +1,5 @@
 {
-  "name": "passport-twitter-examples-signin",
+  "name": "passport-fb-login-for-fb-commander",
   "version": "0.0.1",
   "dependencies":
 	{
@@ -8,9 +8,9 @@
 		"ejs": "1.0.0",
 		"express": "4.8.7",
 		"express-session": "1.7.6",
-		"mysql": "2.4.3",
 		"passport": "0.2.1",
 		"passport-facebook": "latest",
-		"request": "latest"
+		"request": "latest",
+		"blessed": "latest"
   	}
 }
