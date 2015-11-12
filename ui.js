@@ -1,11 +1,12 @@
 var blessed = require('blessed');
-
+var config  = require('./configuration/config');
+var request = require('request');
  //   function loginBox() {
  
 //}        
 
 
-function ui_init(){
+function init(){
 
     // Create a screen object. 
     screen = blessed.screen({
@@ -21,10 +22,11 @@ function ui_init(){
     
     // -------------------- LOGIN
        var lgbox = blessed.box({
-      top: 'left',
-      left: 'left',
+      top: 'center',
+      left: 'center',
       width: '50%',
       height: '50%',
+      align: 'center',
       content: 'Login in progress...',
       tags: true,
       border: {
@@ -42,13 +44,7 @@ function ui_init(){
       }
     });
     
-      // If box is focused, handle `enter`/`return` and give us some more content. 
-        lgbox.key('enter', function(ch, key) {
-          lgbox.setContent('{right}Even different {black-fg}content{/black-fg}.{/right}\n');
-          lgbox.setLine(1, 'bar');
-          lgbox.insertLine(1, 'foo');
-          screen.render();
-        });
+      
     
     
     // Append our box to the screen. 
@@ -67,7 +63,7 @@ function ui_init(){
     
     
    exports.loginBox = lgbox; 
-       
+   exports.screen = screen;  
     // Render the screen. 
     screen.render();
     
@@ -76,13 +72,24 @@ function ui_init(){
 
 function main(at){
     
+    var url = config.graph_base_url+'/me?access_token='+at;
+      request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          var fbResponse = JSON.parse(body);
+          console.log("Got a response: ", fbResponse);
+          //fb_name = fbResponse.name;
+          titlebox.content = 'Hello {bold}'+fbResponse.name+'{/bold}! ';
+        } else {
+          console.log("Got an error: ", error, ", status code: ", response.statusCode);
+        }
+      });
     
     var titlebox = blessed.box({
         top: 'left',
         left: 'left',
         width: '100%',
         height: '10%',
-        content: 'Hello {bold}Gino{/bold}! '+at,
+        //content: '',
         tags: true,
         border: {
             type: 'line'
@@ -101,7 +108,7 @@ function main(at){
     }); 
     
     screen.append(titlebox);
-    
+    screen.render();
     
     
 }
@@ -109,5 +116,6 @@ function main(at){
 
 
 
-exports.uiInit = ui_init;
+exports.init = init;
 exports.main = main;
+

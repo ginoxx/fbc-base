@@ -1,7 +1,7 @@
 module.exports={
 /*
-* This file contains the configurations information of Twitter login app.
-* It consists of Twitter app information, database information.
+* This file contains the configurations information of Facebook login app.
+* It consists of Facebook app information, app information.
 */
 
 	"facebook_api_key" 		: 			"1639211653013114",
@@ -11,5 +11,6 @@ module.exports={
 	"host"					:				"localhost",
 	"username"				:				"root",
 	"password"				:				"",
-	"database"				:				""
+	"database"				:				"",
+	"graph_base_url"		:				"https://graph.facebook.com/v2.5"
 }

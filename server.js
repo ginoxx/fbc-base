@@ -59,22 +59,26 @@ function login() {
     });
     
     app.get('/account', ensureAuthenticated, function(req, res){ 
-      // ************* ONLY FOR TEST 
+     
     
       console.log('AAAAA: '+AT);   
       
-      ui.loginBox.content = "Logged in!";
-      ui.main(AT);
+      ui.loginBox.content = "";
+       ui.loginBox.setLine(1, 'Logged in!');
+       ui.loginBox.insertLine(1, 'Press Enter to access');
+      // If box is focused, handle `enter`/`return` and give us some more content. 
+        ui.loginBox.key('enter', function(ch, key) {
+         // ui.lgbox.setContent('{right}Even different {black-fg}content{/black-fg}.{/right}\n');
+         
+          
+          ui.loginBox.destroy();
+          ui.main(AT);
+         // ui.screen.render();
+        });
       
-      var url = 'https://graph.facebook.com/v2.5/me?access_token='+AT;
-      request(url, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          var fbResponse = JSON.parse(body);
-          console.log("Got a response: ", fbResponse);
-        } else {
-          console.log("Got an error: ", error, ", status code: ", response.statusCode);
-        }
-      });
+      //ui.main(AT);
+      
+      
     // *********************************** 
       
       res.render('account', { user: req.user });
