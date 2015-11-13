@@ -1,10 +1,12 @@
 var blessed = require('blessed');
 var config  = require('./configuration/config');
-var request = require('request');
+//var request = require('request');
+var fbgraph = require('./fbgraph');
  //   function loginBox() {
  
 //}        
 
+// NOte 13.11.2015 // Think about creating a config file specific to the u with colors and share styles
 
 function init(){
 
@@ -21,7 +23,7 @@ function init(){
     });
     
     // -------------------- LOGIN
-       var lgbox = blessed.box({
+      var lgbox = blessed.box({
       top: 'center',
       left: 'center',
       width: '50%',
@@ -71,7 +73,7 @@ function init(){
 
 
 function main(at){
-    
+    /*
     var url = config.graph_base_url+'/me?access_token='+at;
       request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -83,6 +85,8 @@ function main(at){
           console.log("Got an error: ", error, ", status code: ", response.statusCode);
         }
       });
+    */
+    //fbgraph.me(at);
     
     var titlebox = blessed.box({
         top: 'left',
@@ -106,7 +110,11 @@ function main(at){
             }
         }
     }); 
+    // Fetch data from the API via fbgraph
+    fbgraph.me(at);
+    fbgraph.feeds(at);
     
+    exports.titlebox = titlebox; 
     screen.append(titlebox);
     screen.render();
     

@@ -91,7 +91,7 @@ function login() {
     
     app.get(
       '/auth/facebook',
-        passport.authenticate('facebook', { session: false, scope: ['public_profile','user_friends'] })
+        passport.authenticate('facebook', { session: false, scope: ['public_profile','user_friends','user_posts'] })
     );
     
     
