@@ -110,12 +110,34 @@ function main(at){
             }
         }
     }); 
+    
+    var feedbox = blessed.list({
+        top: '100',
+        left: 'left',
+        width: '40%',
+        height: '80%',
+        tags: true,
+        border: {
+            type: 'line'
+        },
+        style: {
+            fg: 'cyan',
+            bg: 'blue',
+            border: {
+            fg: '#f0f0f0',
+            style:'bold'
+            }
+        }
+    }); 
     // Fetch data from the API via fbgraph
     fbgraph.me(at);
     fbgraph.feeds(at);
     
     exports.titlebox = titlebox; 
+    exports.feedbox = feedbox;
+    
     screen.append(titlebox);
+    screen.append(feedbox);
     screen.render();
     
     
