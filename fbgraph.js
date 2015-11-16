@@ -34,38 +34,30 @@ function feeds(at) {
           //
           var items = [];
           
-          // ================
-          /*
-          fbResponse.data.weather.forEach(function(weather) {
-                   html += "<td>";
-                   switch (i) {
-                       case 0:
-                           html += dayOfWeekAsString(new Date(weather.date).getDay());
-                           break;
-                       case 1:
-                           html += weather.hourly[0].weatherDesc[0].value;
-                           break;
-                       case 2:
-                           var imgSrc = weather.hourly[0].weatherIconUrl[0].value;
-                           html += '<img src="'+ imgSrc + '" alt="" />';
-                           break;
-                  }
-                  html += "</td>";
-              });
           
-          */
-          // =================
-          for(var i = 0; i < fbResponse.length; i++) {
-            //var newPerson = new Person();
-            var story = fbResponse.data[i].story;
-            var message = fbResponse.data[i].message;
-            var title = story + message;
-            items.push(title);
-            console.log(title +' *** '+story);
-          
-          }
+
+var data = fbResponse.data;
+  data.forEach(function(o) { 
+            if(o.hasOwnProperty('story')){
+              ftitle = o.story;
+              ftype = 'story';
+            }
+            else {
+              ftitle = o.message;
+              ftype = 'message';
+              
+            }
+            var fid = o.id;
+            var fdate = o.created_time;
+            items.push(ftitle);
+            //console.log('ST :'+ ftitle);
+            //console.log('DR :'+ fdate);
+            //console.log('ID :'+ fid);
+  });
           // fill ui list
+          //console.log(items);
           ui.feedbox.items = items;
+          ui.screen.render();
           //
           //console.log("Got a response: ", fbResponse);
           //fb_name = fbResponse.name;
@@ -75,18 +67,7 @@ function feeds(at) {
         }
       });
 	
-      ///cycle may look like something like this...
-      /*
-      data = JSON.parse(data); // you missed that...
-  for(var i = 0; i < data.length; i++) {
-    var newPerson = new Person();
-    newPerson.firstname = data[i].firstname;
-    newPerson.lastname = data[i].lastname;
-    newPerson.age = data[i].age;
-    newPerson.save(function (err) {});
-  }
-});
-      */
+
 }
 
 

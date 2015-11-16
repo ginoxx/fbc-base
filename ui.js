@@ -120,6 +120,7 @@ function main(at){
         border: {
             type: 'line'
         },
+        items: ['a','b'],
         style: {
             fg: 'cyan',
             bg: 'blue',
