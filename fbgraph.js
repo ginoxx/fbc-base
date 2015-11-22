@@ -50,13 +50,14 @@ var data = fbResponse.data;
             var fid = o.id;
             var fdate = o.created_time;
             items.push(ftitle);
+            //ui.feedbox.insertItem(ftitle);
             //console.log('ST :'+ ftitle);
             //console.log('DR :'+ fdate);
             //console.log('ID :'+ fid);
   });
           // fill ui list
           //console.log(items);
-          ui.feedbox.items = items;
+          //ui.feedbox.setItems(items);
           ui.screen.render();
           //
           //console.log("Got a response: ", fbResponse);
