@@ -16,7 +16,7 @@ function init(){
     */
     
     screen = blessed.screen({
-      dump: __dirname + '/logs/shadow.log',
+      //dump: __dirname + '/logs/shadow.log',
       smartCSR: true,
       dockBorders: true,
       warnings: true

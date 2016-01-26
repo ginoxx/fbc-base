@@ -50,7 +50,7 @@ var data = fbResponse.data;
             var fid = o.id;
             var fdate = o.created_time;
             items.push(ftitle);
-            //ui.feedbox.insertItem(ftitle);
+            ui.feedbox.addItem('-'+ftitle+' '+fdate); //1. why with the variable only, it does not work? 2. use a table from contrib?
             //console.log('ST :'+ ftitle);
             //console.log('DR :'+ fdate);
             //console.log('ID :'+ fid);
